@@ -1,0 +1,18 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# macOS system files
+.DS_Store
