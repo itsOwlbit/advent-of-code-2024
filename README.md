@@ -1,6 +1,6 @@
 # Advent of Code Challenge
 
-View link below to learn more about AoC and the puzzle that is solved each day.  This repo only contains the code I created to solve the puzzles.
+This repo contains the code I created to solve each of the advent puzzles.  View link below to learn more about AoC and read what the puzzles are.
 
 Link: [Advent of Code](https://adventofcode.com/)
 
