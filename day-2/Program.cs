@@ -203,11 +203,4 @@ class DayTwoAoC
 
         return safeCounter;
     }
-
-    public void RemoveBadValue()
-    {
-        // 1 and 2 determines order direction
-        // if 3 is different, who to delete?  2 or 3.
-        // check 4 (if exists) against 1-3 to figure out what is the main order?
-    }
 }
