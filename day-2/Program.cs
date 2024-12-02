@@ -4,7 +4,7 @@ List<List<int>> data = new List<List<int>>();
 // populate data from a file
 try
 {
-    foreach (string line in File.ReadLines("aoc-day2-test.txt"))
+    foreach (string line in File.ReadLines("day-2/aoc-day2-test.txt"))
     {
         // help solve the problem of invisible characters in my text file
         string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);

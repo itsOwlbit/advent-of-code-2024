@@ -5,7 +5,9 @@ List<int> listB = new List<int>();
 // populate lists using data imported from text file
 try
 {
-    foreach (string line in File.ReadLines("aoc-day1-data.txt"))
+    // Test file: day-1/aoc-day1-test.txt
+    // Data file: day-1/aoc-day1-data.txt
+    foreach (string line in File.ReadLines("day-1/aoc-day1-data.txt"))
     {
         // help solve the problem of invisible characters in my text file
         string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
