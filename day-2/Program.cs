@@ -1,4 +1,6 @@
-﻿DayTwoAoC dayTwoAoc = new DayTwoAoC();
+﻿using Microsoft.Win32.SafeHandles;
+
+DayTwoAoC dayTwoAoc = new DayTwoAoC();
 
 // Test file: day-2/aoc-day2-test.txt
 // Data file: day-2/aoc-day2-data.txt
@@ -6,7 +8,11 @@ dayTwoAoc.PopulateDataFromFile("day-2/aoc-day2-data.txt");
 
 // Part One Solution
 var safeReports = dayTwoAoc.CountSafeReports();
-Console.WriteLine($"{safeReports} reports are safe.");
+Console.WriteLine($"{safeReports} reports with default safety rule are safe.");
+
+// Part Two Solution
+safeReports = dayTwoAoc.CountSafeReportsWithSafety();
+Console.WriteLine($"{safeReports} reports with safety rules are safe.");
 
 class DayTwoAoC
 {
@@ -109,8 +115,8 @@ class DayTwoAoC
                     isSafe = false;
                 }
 
-                // ensures difference between values is at most 3
                 difference = Math.Abs(currentValue - currentReport[indexCounter]);
+
                 if (difference > 3)
                 {
                     isSafe = false;
@@ -128,5 +134,80 @@ class DayTwoAoC
         }
 
         return safeCounter;
+    }
+
+    public int CountSafeReportsWithSafety()
+    {
+        int safeCounter = 0;
+
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            List<int> currentReport = data[i];
+
+            int increasingCounter = 0;
+            int decreasingCounter = 0;
+            int equalCounter = 0;
+            isSafe = true;
+
+            int difference;
+            int safetyViolationCounter = 0;
+
+            int currentValue = currentReport[0];
+            int indexCounter = 1;
+
+            do
+            {
+                // for testing values
+                // Console.WriteLine($"Current: {currentValue}, Test against: {currentReport[indexCounter]}");
+
+                if (currentValue < currentReport[indexCounter])
+                {
+                    increasingCounter++;
+                }
+                else if (currentValue > currentReport[indexCounter])
+                {
+                    decreasingCounter++;
+                }
+                else
+                {
+                    equalCounter++;
+                    safetyViolationCounter++;
+                }
+
+                difference = Math.Abs(currentValue - currentReport[indexCounter]);
+
+                if (difference > 3 || safetyViolationCounter > 1)
+                {
+                    isSafe = false;
+                }
+
+                currentValue = currentReport[indexCounter];
+                indexCounter++;
+
+            } while (isSafe && indexCounter < currentReport.Count);
+
+            if ((increasingCounter > 0 && decreasingCounter > 1) || (increasingCounter > 1 && decreasingCounter > 0))
+            {
+                safetyViolationCounter++;
+            }
+
+            // for debugging purposes
+            // Console.WriteLine($"Increase: {increasingCounter}, Decrease: {decreasingCounter}, Equal: {equalCounter}");
+
+            if (isSafe && safetyViolationCounter <= 1)
+            {
+                safeCounter++;
+            }
+        }
+
+        return safeCounter;
+    }
+
+    public void RemoveBadValue()
+    {
+        // 1 and 2 determines order direction
+        // if 3 is different, who to delete?  2 or 3.
+        // check 4 (if exists) against 1-3 to figure out what is the main order?
     }
 }
