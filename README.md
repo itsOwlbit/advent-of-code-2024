@@ -38,5 +38,5 @@ dotnet run --project ./day-x
 Replace the 'day-x' with the folder for the day you want to run. For example, to run the solution for 'day 1':
 
 ```
-dotnet run --project ,/day-1
+dotnet run --project ./day-1
 ```
