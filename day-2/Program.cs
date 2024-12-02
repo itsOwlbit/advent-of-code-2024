@@ -1,119 +1,132 @@
-﻿// data has rows of reports, which are list of levels
-List<List<int>> data = new List<List<int>>();
+﻿DayTwoAoC dayTwoAoc = new DayTwoAoC();
 
-int safeCounter = 0;
-bool isSafe = true;
+// Test file: day-2/aoc-day2-test.txt
+// Data file: day-2/aoc-day2-data.txt
+dayTwoAoc.PopulateDataFromFile("day-2/aoc-day2-data.txt");
 
-// populate data list from a file
-try
+// Part One Solution
+var safeReports = dayTwoAoc.CountSafeReports();
+Console.WriteLine($"{safeReports} reports are safe.");
+
+class DayTwoAoC
 {
-    // Test file: day-2/aoc-day2-test.txt
-    // Data file: day-2/aoc-day2-data.txt
-    foreach (string line in File.ReadLines("day-2/aoc-day2-data.txt"))
+    private List<List<int>> data;
+    bool isSafe = true;
+
+    public DayTwoAoC()
     {
-        // help solve the problem of invisible characters in my text file
-        string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-        // storage for a report row, which has items called levels
-        List<int> report = new List<int>();
-
-        if (parts.Length > 1)
+        data = new List<List<int>>();
+    }
+    public void PopulateDataFromFile(string filePath)
+    {
+        try
         {
-            foreach (string number in parts)
+            foreach (string line in File.ReadLines(filePath))
             {
-                if (int.TryParse(number, out int level))
-                {
-                    report.Add(level);
+                string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
+                List<int> report = new List<int>();
+
+                if (parts.Length > 1)
+                {
+                    foreach (string number in parts)
+                    {
+                        if (int.TryParse(number, out int level))
+                        {
+                            report.Add(level);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Invalid Number: {number}");
+                        }
+                    }
+
+                    // trouble shooting small test text files
+                    // Console.WriteLine("Report Line: " + string.Join(". ", report));
+
+                    data.Add(report);
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid Number: {number}");
+                    Console.WriteLine($"Invalid line from: {line}");
                 }
             }
-
-            // trouble shooting small test text files
-            // Console.WriteLine("Report Line: " + string.Join(". ", report));
-
-            data.Add(report);
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine($"Invalid line from: {line}");
+            Console.WriteLine("Error: " + ex.Message);
         }
     }
-}
-catch (Exception ex)
-{
-    Console.WriteLine("Error: " + ex.Message);
-}
 
-// count number of safe reports
-// safe reports have continuous increasing or decreasing values
-// adjacent values must not equal and have a difference of no more than 3
-// NOTE: assumes each row has at least 3 values
-for (int i = 0; i < data.Count; i++)
-{
-    List<int> currentReport = data[i];
-
-    bool isIncreasing = false;
-    bool isDecreasing = false;
-    isSafe = true;
-
-    int difference;
-
-    int currentValue = currentReport[0];
-    int indexCounter = 1;
-
-    do
+    public int CountSafeReports()
     {
-        // for testing values
-        // Console.WriteLine($"Current: {currentValue}, Test against: {currentReport[indexCounter]}");
+        int safeCounter = 0;
 
-        if (currentValue < currentReport[indexCounter])
+        for (int i = 0; i < data.Count; i++)
         {
-            if (isDecreasing)
+            List<int> currentReport = data[i];
+
+            bool isIncreasing = false;
+            bool isDecreasing = false;
+            isSafe = true;
+
+            int difference;
+
+            int currentValue = currentReport[0];
+            int indexCounter = 1;
+
+            do
             {
-                isIncreasing = false;
-                // Console.WriteLine("Unsafe.");
-                isSafe = false;
-            }
-            isIncreasing = true;
-            // Console.WriteLine("Increasing.");
-        }
-        else if (currentValue > currentReport[indexCounter])
-        {
-            if (isIncreasing)
+                // for testing values
+                // Console.WriteLine($"Current: {currentValue}, Test against: {currentReport[indexCounter]}");
+
+                if (currentValue < currentReport[indexCounter])
+                {
+                    if (isDecreasing)
+                    {
+                        isIncreasing = false;
+                        // Console.WriteLine("Unsafe.");
+                        isSafe = false;
+                    }
+                    isIncreasing = true;
+                    // Console.WriteLine("Increasing.");
+                }
+                else if (currentValue > currentReport[indexCounter])
+                {
+                    if (isIncreasing)
+                    {
+                        isDecreasing = false;
+                        // Console.WriteLine("Unsafe.");
+                        isSafe = false;
+                    }
+
+                    isDecreasing = true;
+                    // Console.WriteLine("Decreasing.");
+                }
+                else
+                {
+                    isSafe = false;
+                }
+
+                // ensures difference between values is at most 3
+                difference = Math.Abs(currentValue - currentReport[indexCounter]);
+                if (difference > 3)
+                {
+                    isSafe = false;
+                }
+
+                currentValue = currentReport[indexCounter];
+                indexCounter++;
+
+            } while (isSafe && indexCounter < currentReport.Count);
+
+            if ((isIncreasing || isDecreasing) && isSafe)
             {
-                isDecreasing = false;
-                // Console.WriteLine("Unsafe.");
-                isSafe = false;
+                safeCounter++;
             }
-
-            isDecreasing = true;
-            // Console.WriteLine("Decreasing.");
-        }
-        else
-        {
-            isSafe = false;
         }
 
-        // ensures difference between values is at most 3
-        difference = Math.Abs(currentValue - currentReport[indexCounter]);
-        if (difference > 3)
-        {
-            isSafe = false;
-        }
-
-        currentValue = currentReport[indexCounter];
-        indexCounter++;
-
-    } while (isSafe && indexCounter < currentReport.Count);
-
-    if ((isIncreasing || isDecreasing) && isSafe)
-    {
-        safeCounter++;
+        return safeCounter;
     }
 }
-
-Console.WriteLine($"{safeCounter} reports are safe.");
