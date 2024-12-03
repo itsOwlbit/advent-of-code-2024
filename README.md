@@ -1,14 +1,16 @@
 # Advent of Code Challenge
 
+This repo contains the code I created to solve each of the advent puzzles.  View link below to learn more about AoC and read what the puzzles are.
+
 Link: [Advent of Code](https://adventofcode.com/)
 
 ## Advent Status
 
 > **Note:** Each day has 2 parts. One star for each part completed.
 
-Day 1: ⭐ ⭐
+Day 1: Historian Hysteria ⭐ ⭐
 
-Day 2: ⭐ ⭐
+Day 2: Red-Nosed Reports ⭐ ⭐
 
 Day 3:
 
