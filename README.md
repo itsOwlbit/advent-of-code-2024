@@ -1,6 +1,6 @@
 # Advent of Code Challenge
 
-This repo contains the code I created to solve each of the advent puzzles.  View link below to learn more about AoC and read what the puzzles are.
+This repo contains the code I created to solve each of the advent puzzles. View link below to learn more about AoC and read what the puzzles are.
 
 Link: [Advent of Code](https://adventofcode.com/)
 
@@ -12,7 +12,7 @@ Day 1: Historian Hysteria ⭐ ⭐
 
 Day 2: Red-Nosed Reports ⭐ ⭐
 
-Day 3: Mull It Over ⭐
+Day 3: Mull It Over ⭐ ⭐
 
 Day 4:
 
