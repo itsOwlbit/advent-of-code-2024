@@ -4,12 +4,20 @@ using System.Text.RegularExpressions;
 
 // Test file: day-3/aoc-day3-test.txt
 // Data file: day-3/aoc-day3-data.txt
-string data = ReadDataFromFile("day-3/aoc-day3-test.txt");
-Console.WriteLine(data);
+string data = ReadDataFromFile("day-3/aoc-day3-data.txt");
+
+// used for troubleshooting
+// Console.WriteLine(data);
+
 string pattern = @"mul\(\d{1,3},\d{1,3}\)";
 List<string> instructions = FindStringMatches(data, pattern);
 
-PrintInstructions(instructions);
+// used for troubleshooting
+// PrintInstructions(instructions);
+
+int result = ProcessInstructions(instructions);
+
+Console.WriteLine($"Result: {result}");
 
 static string ReadDataFromFile(string filePath)
 {
@@ -54,4 +62,25 @@ static void PrintInstructions(List<string> instructions)
     {
         Console.WriteLine($"Instruction: {instruction}");
     }
+}
+
+static int ProcessInstructions(List<string> instructions)
+{
+    Regex regex = new Regex(@"\d+");
+    int result = 0;
+
+    foreach (string instruction in instructions)
+    {
+        MatchCollection numbers = regex.Matches(instruction);
+
+        if (numbers.Count == 2)
+        {
+            int a = int.Parse(numbers[0].Value);
+            int b = int.Parse(numbers[1].Value);
+
+            result += a * b;
+        }
+    }
+
+    return result;
 }
