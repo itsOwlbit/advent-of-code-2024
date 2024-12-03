@@ -1,23 +1,18 @@
-﻿// Test file: day-3/aoc-day3-test.txt
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+// Test file: day-3/aoc-day3-test.txt
 // Data file: day-3/aoc-day3-data.txt
-DayThreeAoC dayThreeAoc = new DayThreeAoC("day-3/aoc-day3-test.txt");
+string data = ReadDataFromFile("day-3/aoc-day3-test.txt");
+Console.WriteLine(data);
+string pattern = @"mul\(\d{1,3},\d{1,3}\)";
+List<string> instructions = FindStringMatches(data, pattern);
 
-// to check what was stored from file
-Console.WriteLine(dayThreeAoc.Data);
+PrintInstructions(instructions);
 
-class DayThreeAoC
+static string ReadDataFromFile(string filePath)
 {
-    private readonly string pattern = @"mul\(\d{1,3},\d{1,3}\)";
-    private readonly string data;
-    public string Data => (data);
-    private List<string> dataParts;
-
-    public DayThreeAoC(string filePath)
-    {
-        data = ReadDataFromFile(filePath);
-    }
-
-    private string ReadDataFromFile(string filePath)
     {
         string dataFromFile = "";
 
@@ -37,5 +32,26 @@ class DayThreeAoC
 
         return dataFromFile;
     }
+}
 
+static List<string> FindStringMatches(string data, string pattern)
+{
+    var matches = new List<string>();
+    Regex regex = new Regex(pattern);
+
+    foreach (Match match in regex.Matches(data))
+    {
+        matches.Add(match.Value);
+    }
+
+    return matches;
+}
+
+static void PrintInstructions(List<string> instructions)
+{
+    Console.WriteLine("List of Instructions");
+    foreach (var instruction in instructions)
+    {
+        Console.WriteLine($"Instruction: {instruction}");
+    }
 }
