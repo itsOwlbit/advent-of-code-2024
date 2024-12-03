@@ -8,9 +8,9 @@ Link: [Advent of Code](https://adventofcode.com/)
 
 > **Note:** Each day has 2 parts. One star for each part completed.
 
-Day 1: ⭐ ⭐
+Day 1: Historian Hysteria ⭐ ⭐
 
-Day 2: ⭐ ⭐
+Day 2: Red-Nosed Reports ⭐ ⭐
 
 Day 3:
 
