@@ -1,4 +1,6 @@
-﻿string filePath = "day-5/aoc-day5-test.txt";
+﻿// string filePath = "day-5/aoc-day5-test.txt";
+string filePath = "day-5/aoc-day5-data.txt";
+
 
 Printer safetyProtocolPrintQueue = new Printer(filePath);
 // safetyProtocolPrintQueue.PrintData();
@@ -96,6 +98,8 @@ class Printer
             if (!hasViolatesRule)
             {
                 // calculate the sum of the middle page number for each queue line
+                _sumOfMiddlePageValue += MiddlePageValue(pages);
+
                 PrintPages(pages);
             }
         }
@@ -119,5 +123,15 @@ class Printer
     private void PrintPages(List<int> pages)
     {
         Console.WriteLine($"{string.Join(", ", pages)}");
+    }
+
+    private int MiddlePageValue(List<int> pages)
+    {
+        if (pages.Count % 2 != 0)
+        {
+            return pages[pages.Count / 2];
+        }
+
+        return 0;
     }
 }
