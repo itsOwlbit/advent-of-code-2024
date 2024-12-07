@@ -18,7 +18,7 @@ Day 4: Ceres Search ⭐ ⭐
 
 Day 5: Print Queue ⭐ ⭐
 
-Day 6: Guard Gallivant ⭐
+Day 6: Guard Gallivant ⭐ (Part 2 ⚠️)
 
 Day 7:
 
