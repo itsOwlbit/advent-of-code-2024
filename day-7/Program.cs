@@ -1,11 +1,12 @@
 ﻿try
 {
-    string filePath = "day-7/aoc-day7-test.txt";
+    // string filePath = "day-7/aoc-day7-test.txt";
+    string filePath = "day-7/aoc-day7-data.txt";
 
     var calibrator = new Calibrator(filePath);
     var testResults = calibrator.ReadDataFromFile();
 
-    int sumOfValidResults = 0;
+    long sumOfValidResults = 0;
 
     foreach (var testResult in testResults)
     {
@@ -31,10 +32,10 @@ catch (Exception ex)
 
 struct TestResult
 {
-    public int TestResultValue { get; set; }
+    public long TestResultValue { get; set; }
     public List<int> TestValues { get; set; }
 
-    public TestResult(int testResultValue, List<int> testValues)
+    public TestResult(long testResultValue, List<int> testValues)
     {
         TestResultValue = testResultValue;
         TestValues = testValues;
@@ -74,7 +75,7 @@ class Calibrator
                     throw new FormatException($"Invalid line format: {line}");
                 }
 
-                if (!int.TryParse(parts[0].Trim(), out int testResultValue))
+                if (!long.TryParse(parts[0].Trim(), out long testResultValue))
                 {
                     throw new FormatException($"Invalid TestResult value: {parts[0].Trim()}");
                 }
@@ -104,10 +105,10 @@ class Calibrator
 
 class BFSValidator
 {
-    public static bool ValidateEquation(List<int> testValues, int target)
+    public static bool ValidateEquation(List<int> testValues, long target)
     {
         // Create queue
-        var queue = new Queue<(int result, int index)>();
+        var queue = new Queue<(long result, int index)>();
         // Start with the first value as the initial result
         queue.Enqueue((testValues[0], 0));
 
