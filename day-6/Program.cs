@@ -1,15 +1,18 @@
 ﻿// string filePath = "day-6/aoc-day6-test.txt";
 string filePath = "day-6/aoc-day6-data.txt";
 
-LabMap myMap = new LabMap(filePath);
+LabMap labMap = new LabMap(filePath);
 
-// myMap.PrintMap();
-// myMap.PrintGuardPosition();
-// myMap.PrintObstaclePositions();
+// labMap.PrintMap();
+// labMap.PrintGuardPosition();
+// labMap.PrintObstaclePositions();
 Console.WriteLine();
-myMap.MoveGuard();
-int xCount = myMap.CountXInMap();
+labMap.MoveGuard();
+int xCount = labMap.CountXInMap();
 Console.WriteLine($"Number of 'X' in map: {xCount}");
+
+int loopCount = labMap.CountPossibleLoops();
+Console.WriteLine($"Number of possible loops: {loopCount}");
 
 class LabMap
 {
@@ -19,11 +22,12 @@ class LabMap
     private List<int> _guardsPositions;
     private List<int> _obstaclePositions;
     private static readonly char[] positionalChars = { '^', '>', 'v', '<' };
+    private List<(int row, int col)> _guardStopPositions;
 
     public LabMap(string filePath)
     {
         _map = new List<char>();
-
+        _guardStopPositions = new List<(int row, int col)>();
         GetDataFromFile(filePath);
 
         _guardsPositions = _map
@@ -96,6 +100,8 @@ class LabMap
 
             while (!hasExitedMap)
             {
+                int lastValidPosition = nextPosition;
+
                 switch (direction)
                 {
                     case var _ when direction == positionalChars[0]:
@@ -118,12 +124,39 @@ class LabMap
                 // Change guard's position and facing direction
                 if (nextPosition >= 0 && nextPosition < _map.Count)
                 {
+                    int row = nextPosition / _cols;
+                    int col = nextPosition % _cols;
+                    _guardStopPositions.Add((row, col));
+
                     ChangeGuardsPosition(position, nextPosition, direction);
                     direction = _map[nextPosition];
                 }
-
-                if (nextPosition == -1)
+                else
                 {
+                    int row = lastValidPosition / _cols;
+                    int col = lastValidPosition % _cols;
+
+                    if (direction == positionalChars[0]) // Exiting top
+                    {
+                        _guardStopPositions.Add((0, col));
+                        Console.WriteLine($"Guard exited at the top: (0, {col})");
+                    }
+                    else if (direction == positionalChars[1]) // Exiting right
+                    {
+                        _guardStopPositions.Add((row, _cols - 1));
+                        Console.WriteLine($"Guard exited at the right: ({row}, {_cols - 1})");
+                    }
+                    else if (direction == positionalChars[2]) // Exiting bottom
+                    {
+                        _guardStopPositions.Add((_rows - 1, col));
+                        Console.WriteLine($"Guard exited at the bottom: ({_rows - 1}, {col})");
+                    }
+                    else if (direction == positionalChars[3]) // Exiting left
+                    {
+                        _guardStopPositions.Add((row, 0));
+                        Console.WriteLine($"Guard exited at the left: ({row}, 0)");
+                    }
+
                     hasExitedMap = true;
                     Console.WriteLine("Guard has exited map.");
                 }
@@ -131,6 +164,7 @@ class LabMap
                 // PrintMap();
             }
         }
+        Console.WriteLine($"\nGuard visited: {string.Join(", ", _guardStopPositions)}");
     }
 
     private int GuardFacingUp(int position)
@@ -248,5 +282,147 @@ class LabMap
         int count = _map.Count(c => c == 'X');
 
         return count;
+    }
+
+    public int CountPossibleLoops()
+    {
+        int loopCount = 0;
+
+        // Use a HashSet to store previously visited positions for faster lookup
+        HashSet<(int row, int col)> visitedPositions = new HashSet<(int, int)>();
+
+        // Iterate over each position the guard has visited in _guardStopPositions
+        for (int i = 0; i < _guardStopPositions.Count - 1; i++)  // Ensure we don't go out of bounds
+        {
+            var (currentRow, currentCol) = _guardStopPositions[i];
+            var (nextRow, nextCol) = _guardStopPositions[i + 1];
+
+            Console.WriteLine($"\nChecking from ({currentRow}, {currentCol}) to ({nextRow}, {nextCol})");
+
+            bool isGoingUp = currentCol == nextCol && nextRow < currentRow;
+            bool isGoingRight = currentRow == nextRow && nextCol > currentCol;
+            bool isGoingDown = currentCol == nextCol && nextRow > currentRow;
+            bool isGoingLeft = currentRow == nextRow && nextCol < currentCol;
+
+            if (isGoingUp)
+            {
+                Console.WriteLine($"Moving up from ({currentRow}, {currentCol}), checking rows from {currentRow - 1} to {nextRow + 1} and columns from {currentCol} to 0");
+
+                for (int rowCheck = currentRow - 1; rowCheck > nextRow; rowCheck--)
+                {
+                    for (int colCheck = currentCol + 1; colCheck < _cols; colCheck++)
+                    {
+                        int linearPos = rowCheck * _cols + colCheck;
+                        int obstaclePos = (rowCheck * _cols + colCheck) + 1;
+
+                        // Check if this position is in visitedPositions and not in obstacle positions
+                        if (visitedPositions.Contains((rowCheck, colCheck)) &&
+                            !_obstaclePositions.Contains((linearPos)) &&
+                            _obstaclePositions.Contains((obstaclePos)))
+                        {
+                            Console.WriteLine($"Loop detected at ({rowCheck}, {colCheck})");
+                            loopCount++; // Increment loop count if loop is found
+                        }
+                        else if (_obstaclePositions.Contains((linearPos)))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (isGoingRight)
+            {
+                // Check if there is any previously visited position in the same column, and rows below the current row
+                Console.WriteLine($"Moving right from ({currentRow}, {currentCol}), checking rows from {currentRow + 1} to {_rows - 1} and columns from {currentCol + 1} to {nextCol - 1}");
+
+                // Loop over columns between currentCol to nextCol - 1
+                for (int colCheck = currentCol + 1; colCheck < nextCol; colCheck++)
+                {
+                    // Loop over rows between currentRow + 1 to _rows - 1
+                    for (int rowCheck = currentRow + 1; rowCheck < _rows; rowCheck++)
+                    {
+                        int linearPos = rowCheck * _cols + colCheck;
+                        int obstaclePos = (rowCheck + 1) * _cols + colCheck;
+
+                        // Check if this position is in visitedPositions and not in obstacle positions
+                        if (visitedPositions.Contains((rowCheck, colCheck)) &&
+                            !_obstaclePositions.Contains((linearPos)) &&
+                            _obstaclePositions.Contains((obstaclePos)))
+                        {
+                            Console.WriteLine($"Loop detected at ({rowCheck}, {colCheck})");
+                            loopCount++; // Increment loop count if loop is found
+                        }
+                        else if (_obstaclePositions.Contains((linearPos)))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (isGoingDown)
+            {
+                Console.WriteLine($"Moving down from ({currentRow}, {currentCol}), checking rows from {currentRow + 1} to {nextRow - 1} and columns from {currentCol - 1} to 0");
+
+                for (int rowCheck = currentRow + 1; rowCheck < nextRow; rowCheck++)
+                {
+                    for (int colCheck = currentCol - 1; colCheck >= 0; colCheck--)
+                    {
+                        int linearPos = rowCheck * _cols + colCheck;
+                        int obstaclePos = (rowCheck * _cols + colCheck) - 1;
+
+                        // Check if this position is in visitedPositions and not in obstacle positions
+                        if (visitedPositions.Contains((rowCheck, colCheck)) &&
+                            !_obstaclePositions.Contains((linearPos)) &&
+                            _obstaclePositions.Contains((obstaclePos)))
+                        {
+                            Console.WriteLine($"Loop detected at ({rowCheck}, {colCheck})");
+                            loopCount++; // Increment loop count if loop is found
+                        }
+                        else if (_obstaclePositions.Contains((linearPos)))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (isGoingLeft)
+            {
+                // Check if there is any previously visited position in the same column, and rows below the current row
+                Console.WriteLine($"Moving left from ({currentRow}, {currentCol}), checking rows from {currentRow - 1} to 0 and columns from {currentCol - 1} to {nextCol + 1}");
+
+                // Loop over columns between currentCol to nextCol - 1
+                for (int colCheck = currentCol - 1; colCheck > nextCol; colCheck--)
+                {
+                    // Loop over rows between currentRow + 1 to _rows - 1
+                    for (int rowCheck = currentRow - 1; rowCheck >= 0; rowCheck--)
+                    {
+                        int linearPos = rowCheck * _cols + colCheck;
+                        int obstaclePos = (rowCheck - 1) * _cols + colCheck;
+
+                        // Check if this position is in visitedPositions and not in obstacle positions
+                        if (visitedPositions.Contains((rowCheck, colCheck)) &&
+                            !_obstaclePositions.Contains((linearPos)) &&
+                            _obstaclePositions.Contains((obstaclePos)))
+                        {
+                            Console.WriteLine($"Loop detected at ({rowCheck}, {colCheck})");
+                            loopCount++; // Increment loop count if loop is found
+                        }
+                        else if (_obstaclePositions.Contains((linearPos)))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Something wrong with directions.");
+            }
+
+            // Add the current position to the visited positions set
+            visitedPositions.Add((currentRow, currentCol));
+        }
+
+        return loopCount;
     }
 }
