@@ -10,20 +10,40 @@
 
     foreach (var testResult in testResults)
     {
-        Console.WriteLine($"Processing: {testResult}");
+        // Console.WriteLine($"Processing: {testResult}");
 
         if (BFSValidator.ValidateEquation(testResult.TestValues, testResult.TestResultValue))
         {
-            Console.WriteLine($"Valid equation found for {testResult.TestResultValue}");
+            // Console.WriteLine($"Valid equation found for {testResult.TestResultValue}");
             sumOfValidResults += testResult.TestResultValue;
         }
         else
         {
-            Console.WriteLine($"No valid equation found for {testResult.TestResultValue}");
+            // Console.WriteLine($"No valid equation found for {testResult.TestResultValue}");
         }
     }
 
-    Console.WriteLine($"\nSum of all valid TestResultValues: {sumOfValidResults}");
+    Console.WriteLine($"\nSum of all valid TestResultValues (part 1): {sumOfValidResults}\n");
+
+    // part 2
+    sumOfValidResults = 0;
+
+    foreach (var testResult in testResults)
+    {
+        // Console.WriteLine($"Processing: {testResult}");
+
+        if (BFSValidatorWithAdditionalOperation.ValidateEquation(testResult.TestValues, testResult.TestResultValue))
+        {
+            // Console.WriteLine($"Valid equation found for {testResult.TestResultValue}");
+            sumOfValidResults += testResult.TestResultValue;
+        }
+        else
+        {
+            // Console.WriteLine($"No valid equation found for {testResult.TestResultValue}");
+        }
+    }
+
+    Console.WriteLine($"\nSum of all valid TestResultValues (part 2): {sumOfValidResults}\n");
 }
 catch (Exception ex)
 {
@@ -135,6 +155,48 @@ class BFSValidator
 
             // Multiply the next value
             queue.Enqueue((currentResult * nextValue, currentIndex + 1));
+        }
+
+        return false; // No valid equation found
+    }
+}
+
+class BFSValidatorWithAdditionalOperation
+{
+    public static bool ValidateEquation(List<int> testValues, long target)
+    {
+        // Create queue
+        var queue = new Queue<(long result, int index)>();
+        // Start with the first value as the initial result
+        queue.Enqueue((testValues[0], 0));
+
+        // While not empty
+        while (queue.Count > 0)
+        {
+            var (currentResult, currentIndex) = queue.Dequeue();
+
+            // Base case: if we used all testValues
+            if (currentIndex == testValues.Count - 1)
+            {
+                if (currentResult == target)
+                {
+                    return true;
+                }
+                continue;
+            }
+
+            // Get next test in list
+            int nextValue = testValues[currentIndex + 1];
+
+            // Add the next value
+            queue.Enqueue((currentResult + nextValue, currentIndex + 1));
+
+            // Multiply the next value
+            queue.Enqueue((currentResult * nextValue, currentIndex + 1));
+
+            // Concatenate the next value (convert to string, then back to long)
+            long concatenatedValue = long.Parse($"{currentResult}{nextValue}");
+            queue.Enqueue((concatenatedValue, currentIndex + 1));
         }
 
         return false; // No valid equation found

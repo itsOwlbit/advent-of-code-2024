@@ -20,7 +20,7 @@ Day 5: Print Queue ⭐ ⭐
 
 Day 6: Guard Gallivant ⭐ (Part 2 ⚠️)
 
-Day 7: Bridge Repair ⭐
+Day 7: Bridge Repair ⭐ ⭐
 
 ## How to Run a Specific Day's Project
 
