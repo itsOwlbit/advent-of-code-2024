@@ -22,6 +22,8 @@ Day 6: Guard Gallivant ⭐ (Part 2 ⚠️)
 
 Day 7: Bridge Repair ⭐ ⭐
 
+Day 8: Resonant Collinearity (Part 1 ⚠️) (Part 2 not started)
+
 ## How to Run a Specific Day's Project
 
 1. Clone the repository:
