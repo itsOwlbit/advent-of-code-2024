@@ -6,6 +6,8 @@ Link: [Advent of Code](https://adventofcode.com/)
 
 ## Advent Status
 
+### Current Total ⭐: 13
+
 > **Note:** Each day has 2 parts. One star for each part completed.
 
 Day 1: Historian Hysteria ⭐ ⭐
