@@ -26,6 +26,18 @@ Day 7: Bridge Repair ⭐ ⭐
 
 Day 8: Resonant Collinearity (Part 1 ⚠️) (Part 2 not started)
 
+Day 9: Disk Fragmenter ⭐
+
+Day 10:
+
+Day 11:
+
+Day 12:
+
+Day 13:
+
+Day 14:
+
 ## How to Run a Specific Day's Project
 
 1. Clone the repository:
