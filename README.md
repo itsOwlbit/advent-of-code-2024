@@ -26,7 +26,7 @@ Day 7: Bridge Repair ⭐ ⭐
 
 Day 8: Resonant Collinearity (Part 1 ⚠️) (Part 2 not started)
 
-Day 9: Disk Fragmenter ⭐
+Day 9: Disk Fragmenter ⭐ (Part 2 not started)
 
 Day 10:
 

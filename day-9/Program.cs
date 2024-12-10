@@ -1,5 +1,5 @@
-﻿// string filePath = "day-9/aoc-day9-test.txt";
-string filePath = "day-9/aoc-day9-data.txt";
+﻿string filePath = "day-9/aoc-day9-test.txt";
+// string filePath = "day-9/aoc-day9-data.txt";
 
 ComputerDisk disk = new ComputerDisk(filePath);
 
