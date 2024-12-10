@@ -1,13 +1,13 @@
-﻿string filePath = "day-9/aoc-day9-test.txt";
-// string filePath = "day-9/aoc-day9-data.txt";
+﻿// string filePath = "day-9/aoc-day9-test.txt";
+string filePath = "day-9/aoc-day9-data.txt";
 
 ComputerDisk disk = new ComputerDisk(filePath);
 
-disk.PrintDiskMap();
-Console.WriteLine();
+// disk.PrintDiskMap();
+// Console.WriteLine();
 
-disk.GetDiskDrive();
-Console.WriteLine();
+// disk.GetDiskDrive();
+// Console.WriteLine();
 
 disk.DefragDiskDrive();
 Console.WriteLine("Result after defragmenting:");
@@ -18,7 +18,7 @@ class ComputerDisk
 {
     private string _diskMap = "";
     private List<char> _diskDrive;
-    private int _checkSum = 0;
+    private long _checkSum = 0;
 
     public ComputerDisk(string filePath)
     {
@@ -121,7 +121,7 @@ class ComputerDisk
 
         for (int i = 0; i < _diskDrive.Count; i++)
         {
-            int checksum = i * (_diskDrive[i] - '0');
+            long checksum = i * (_diskDrive[i] - '0');
             // Console.WriteLine($"{checksum} = {i} * {_diskDrive[i]}");
             _checkSum += checksum;
         }
@@ -131,7 +131,7 @@ class ComputerDisk
 
     public void DisplayDefragResult()
     {
-        this.GetDiskDrive();
+        // this.GetDiskDrive();
         this.CalculateCheckSum();
     }
 }
