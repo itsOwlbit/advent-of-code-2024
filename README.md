@@ -28,7 +28,7 @@ Day 8: Resonant Collinearity (Part 1 ⚠️) (Part 2 not started)
 
 Day 9: Disk Fragmenter ⭐ (Part 2 not started)
 
-Day 10:
+Day 10: Hoof It (Part 1 ⚠️)
 
 Day 11:
 
