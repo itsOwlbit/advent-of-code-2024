@@ -1,5 +1,6 @@
 ﻿// string filepath = "day-12/aoc-day12-test-mini.txt";
-string filepath = "day-12/aoc-day12-test.txt";
+// string filepath = "day-12/aoc-day12-test.txt";
+string filepath = "day-12/aoc-day12-data.txt";
 
 Plots garden = new Plots(filepath);
 
