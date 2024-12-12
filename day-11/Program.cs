@@ -15,7 +15,7 @@ Console.WriteLine();
 // Console.WriteLine();
 
 // part 2
-stoneLine.Blink2(75);
+stoneLine.Blink2(25);
 Console.WriteLine();
 
 class StonesLine
