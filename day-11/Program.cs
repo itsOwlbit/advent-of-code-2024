@@ -1,4 +1,6 @@
-﻿string filepath = "day-11/aoc-day11-test.txt";
+﻿using System.Numerics;
+// string filepath = "day-11/aoc-day11-test.txt";
+string filepath = "day-11/aoc-day11-data.txt";
 
 StonesLine stoneLine = new StonesLine(filepath);
 
@@ -8,17 +10,17 @@ Console.WriteLine();
 stoneLine.Blink(25);
 Console.WriteLine();
 
-int numberOfStones = stoneLine.GetNumberOfStones();
+BigInteger numberOfStones = stoneLine.GetNumberOfStones();
 Console.WriteLine($"Number of Stones: {numberOfStones}");
 Console.WriteLine();
 
 class StonesLine
 {
-    List<int> _stones;
+    List<BigInteger> _stones;
 
     public StonesLine(string filepath)
     {
-        _stones = new List<int>();
+        _stones = new List<BigInteger>();
 
         this.GetStonesFromFile(filepath);
     }
@@ -35,7 +37,7 @@ class StonesLine
 
                 foreach (var part in parts)
                 {
-                    if (int.TryParse(part, out int number))
+                    if (BigInteger.TryParse(part, out BigInteger number))
                     {
                         _stones.Add(number);
                     }
@@ -48,41 +50,39 @@ class StonesLine
     {
         for (int i = 1; i <= numberOfBlinks; i++)
         {
-            for (int j = 0; j < _stones.Count; j++)
+            List<BigInteger> newStones = new List<BigInteger>();
+
+            foreach (var stone in _stones)
             {
-                // int length = _stones[i].ToString().Length;
-                // Console.WriteLine($"length: {length}");
-
-                if (_stones[j] == 0)
+                if (stone == 0)
                 {
-                    _stones[j] = 1;
+                    newStones.Add(1);
                 }
-                else if (_stones[j].ToString().Length % 2 == 0)
+                else if (stone.ToString().Length % 2 == 0)
                 {
-                    int numberOfDigits = _stones[j].ToString().Length;
-                    int halfValue = numberOfDigits / 2;
-                    int leftStone = _stones[j] / (int)Math.Round(Math.Pow(10, halfValue));
-                    int rightStone = _stones[j] - (leftStone * (int)Math.Round(Math.Pow(10, halfValue)));
+                    int numberOfDigits = stone.ToString().Length;
+                    int halfDigit = numberOfDigits / 2;
+                    BigInteger divisor = BigInteger.Pow(10, halfDigit);
+                    BigInteger leftStone = stone / divisor;
+                    BigInteger rightStone = stone % divisor;
 
-                    // Console.WriteLine($"left stone: {leftStone}");
-                    // Console.WriteLine($"right stone: {rightStone}");
-
-                    _stones[j] = leftStone;
-                    _stones.Insert(j + 1, rightStone);
-                    j++;
+                    newStones.Add(leftStone);
+                    newStones.Add(rightStone);
                 }
                 else
                 {
-                    _stones[j] *= 2024;
+                    newStones.Add(stone * 2024);
                 }
             }
 
-            Console.WriteLine($"After {i} blink(s):");
-            DisplayStones();
+            _stones = newStones; // Replace old stones with the new list
+
+            Console.WriteLine($"Blink {i}: {_stones.Count}");
+            Console.WriteLine("");
         }
     }
 
-    public int GetNumberOfStones()
+    public BigInteger GetNumberOfStones()
     {
         return _stones.Count;
     }
