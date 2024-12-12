@@ -32,7 +32,7 @@ Day 10: Hoof It (Part 1 ⚠️)
 
 Day 11: Plutonian Pebbles ⭐ (Part 2 out of memory)
 
-Day 12:
+Day 12: Garden Groups ⭐ (Part 2 not started)
 
 Day 13:
 
