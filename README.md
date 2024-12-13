@@ -34,7 +34,7 @@ Day 11: Plutonian Pebbles ⭐ (Part 2 out of memory)
 
 Day 12: Garden Groups ⭐ (Part 2 not started)
 
-Day 13:
+Day 13: Claw Contraption ⭐ (Part 2 not started)
 
 Day 14:
 
