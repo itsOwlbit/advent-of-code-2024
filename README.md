@@ -6,7 +6,7 @@ Link: [Advent of Code](https://adventofcode.com/)
 
 ## Advent Status
 
-### Current Total ⭐: 16
+### Current Total ⭐: 17
 
 > **Note:** Each day has 2 parts. One star for each part completed.
 
