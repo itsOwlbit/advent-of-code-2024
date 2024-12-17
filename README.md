@@ -36,7 +36,11 @@ Day 12: Garden Groups ⭐ (Part 2 not started)
 
 Day 13: Claw Contraption ⭐ (Part 2 not started)
 
-Day 14:
+Day 14: Restroom Redoubt (Part 1 not started)
+
+Day 15: Warehouse Woes (Part 1 not started)
+
+Day 16: Reindeer Maze (Part 1 not started)
 
 ## How to Run a Specific Day's Project
 
