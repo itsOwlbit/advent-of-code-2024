@@ -42,6 +42,8 @@ Day 15: Warehouse Woes (Part 1 not started)
 
 Day 16: Reindeer Maze (Part 1 not started)
 
+Day 17: Chronospatial Computer (Part 1 not started)
+
 ## How to Run a Specific Day's Project
 
 1. Clone the repository:
