@@ -44,6 +44,20 @@ Day 16: Reindeer Maze (Part 1 not started)
 
 Day 17: Chronospatial Computer (Part 1 not started)
 
+Day 18: RAM Run (Part 1 not started)
+
+Day 19:
+
+Day 20:
+
+Day 21:
+
+Day 22:
+
+Day 23:
+
+Day 24:
+
 ## How to Run a Specific Day's Project
 
 1. Clone the repository:
