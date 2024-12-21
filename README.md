@@ -46,7 +46,7 @@ Day 17: Chronospatial Computer (Part 1 not started)
 
 Day 18: RAM Run (Part 1 not started)
 
-Day 19:
+Day 19: Linen Layout (Part 1 not started)
 
 Day 20:
 
