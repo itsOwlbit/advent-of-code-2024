@@ -24,31 +24,31 @@ Day 6: Guard Gallivant ⭐ (Part 2 ⚠️)
 
 Day 7: Bridge Repair ⭐ ⭐
 
-Day 8: Resonant Collinearity (Part 1 ⚠️) (Part 2 not started)
+Day 8: Resonant Collinearity (Part 1 ⚠️)
 
-Day 9: Disk Fragmenter ⭐ (Part 2 not started)
+Day 9: Disk Fragmenter ⭐
 
 Day 10: Hoof It (Part 1 ⚠️)
 
 Day 11: Plutonian Pebbles ⭐ (Part 2 out of memory)
 
-Day 12: Garden Groups ⭐ (Part 2 not started)
+Day 12: Garden Groups ⭐
 
-Day 13: Claw Contraption ⭐ (Part 2 not started)
+Day 13: Claw Contraption ⭐
 
-Day 14: Restroom Redoubt (Part 1 not started)
+Day 14: Restroom Redoubt
 
-Day 15: Warehouse Woes (Part 1 not started)
+Day 15: Warehouse Woes
 
-Day 16: Reindeer Maze (Part 1 not started)
+Day 16: Reindeer Maze
 
-Day 17: Chronospatial Computer (Part 1 not started)
+Day 17: Chronospatial Computer
 
-Day 18: RAM Run (Part 1 not started)
+Day 18: RAM Run
 
-Day 19: Linen Layout (Part 1 not started)
+Day 19: Linen Layout
 
-Day 20:
+Day 20: Race Condition
 
 Day 21:
 
