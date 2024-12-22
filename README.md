@@ -52,7 +52,7 @@ Day 20: Race Condition
 
 Day 21: Keyboard Conundrum
 
-Day 22:
+Day 22: Monkey Market
 
 Day 23:
 
