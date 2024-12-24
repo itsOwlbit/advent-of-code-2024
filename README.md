@@ -54,7 +54,7 @@ Day 21: Keyboard Conundrum
 
 Day 22: Monkey Market
 
-Day 23:
+Day 23: LAN Party
 
 Day 24:
 
