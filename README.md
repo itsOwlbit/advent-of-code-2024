@@ -6,7 +6,7 @@ Link: [Advent of Code](https://adventofcode.com/)
 
 ## Advent Status
 
-### Current Total ⭐: 17
+### Total ⭐ (as of 12/26/2024): 17
 
 > **Note:** Each day has 2 parts. One star for each part completed.
 
@@ -56,7 +56,9 @@ Day 22: Monkey Market
 
 Day 23: LAN Party
 
-Day 24:
+Day 24: Crossed Wires
+
+Day 25: Code Chronicle
 
 ## How to Run a Specific Day's Project
 
